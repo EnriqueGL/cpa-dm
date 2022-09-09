@@ -1,0 +1,24 @@
+<ion-content [fullscreen]="true">
+    <ion-card>
+        <ion-card-content>
+            <ion-row>
+                <ion-col size="2" class="ion-align-items-center ion-justify-content-center" style="display: flex; flex-direction: column">
+                    <ion-icon name="save-outline" color="success" size="large" *ngIf="space.percentage > 50"></ion-icon>
+                    <ion-icon name="save-outline" color="warning" size="large" *ngIf="space.percentage <= 50 && space.percentage >20"></ion-icon>
+                    <ion-icon name="save-outline" color="danger" size="large" *ngIf="space.percentage <= 20"></ion-icon>
+                    <ion-text class="ion-text-xl-left">
+                        {{space.all}} GB
+                    </ion-text>
+                </ion-col>
+                <ion-col size="10">
+                    <p>Espacio en el disco duro</p>
+                    <p>
+                        <ion-chip>{{space.used}}GB</ion-chip>
+                        <ion-chip>{{space.free}}GB</ion-chip>
+                        <ion-chip>{{space.percentage}}%</ion-chip>
+                    </p>
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+</ion-content>
