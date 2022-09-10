@@ -1,5 +1,7 @@
 {
   "name": "cpa-dm",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

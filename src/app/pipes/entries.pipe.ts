@@ -5,7 +5,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class EntriesPipe implements PipeTransform {
 
-    transform(value: unknown, ...args: unknown[]): unknown {
+    transform(value: any, ...args: any[]): any {
         if (value) {
             return Object.entries(value);
         }

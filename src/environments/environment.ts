@@ -4,6 +4,7 @@
 
 export const environment = {
     production: false,
+    // apiUrl: 'https://cpaprocess.cpavision.mx/'
     apiUrl: 'http://localhost:8081/'
 };
 
