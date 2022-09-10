@@ -1,0 +1,17 @@
+ion-card {
+    ion-card-content {
+        div {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    }
+}
+ion-list {
+    background: transparent;
+    ion-item {
+        --background: transparent;
+        ion-row {
+            width: 100%;
+        }
+    }
+}
