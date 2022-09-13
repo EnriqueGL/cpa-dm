@@ -1,0 +1,90 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-button (click)="closeModal()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Filtros</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form #f="ngForm" (ngSubmit)="apply()" [formGroup]="form">
+        <ion-list lines="full">
+            <ion-item>
+                <ion-label>Grupo</ion-label>
+                <ion-input class="ion-text-right" formControlName="grupo" type="number"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Estatus</ion-label>
+                <ion-select placeholder="Select one" interface="popover" formControlName="estatus" multiple="">
+                    <ion-select-option value="En cola">En Cola</ion-select-option>
+                    <ion-select-option value="En proceso">En Proceso</ion-select-option>
+                    <ion-select-option value="Terminado">Terminado</ion-select-option>
+                    <ion-select-option value="Sin valores">Sin valores</ion-select-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Producto</ion-label>
+                <ion-select placeholder="select one" interface="popover" formControlName="producto" multiple="">
+                    <ion-select-option value="NR">NomReview</ion-select-option>
+                    <ion-select-option value="FR">FacReview</ion-select-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Tipo</ion-label>
+                <ion-select placeholder="select one" interface="popover" formControlName="tipo">
+                    <ion-select-option value="normal">Normal</ion-select-option>
+                    <ion-select-option value="uuids">UUIDs</ion-select-option>
+                </ion-select>
+                <ion-button style="z-index: 9" *ngIf="form.value?.tipo" (click)="clearFiltro('tipo')" size="small" fill="clear" color="medium">
+                    <ion-icon slot="icon-only" name="close"></ion-icon>
+                </ion-button>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Tipo Documento</ion-label>
+                <ion-select placeholder="select one" interface="popover" formControlName="tipo_documento">
+                    <ion-select-option value="csv">CSV</ion-select-option>
+                    <ion-select-option value="file">File</ion-select-option>
+                </ion-select>
+                <ion-button style="z-index: 9" *ngIf="form.value?.tipo_documento" (click)="clearFiltro('tipo_documento')" size="small" fill="clear" color="medium">
+                    <ion-icon slot="icon-only" name="close"></ion-icon>
+                </ion-button>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Error</ion-label>
+                <ion-toggle formControlName="error"></ion-toggle>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Id</ion-label>
+                <ion-input formControlName="ids" type="phone"></ion-input>
+                <ion-button (click)="add()" color="success"><ion-icon name="add"></ion-icon></ion-button>
+            </ion-item>
+        </ion-list>
+    </form>
+
+    <ion-list>
+        <ion-item *ngFor="let id of ids; let i = index">
+            <ion-label>{{id}}</ion-label>
+            <ion-button (click)="delete(i)" color="danger"><ion-icon name="remove"></ion-icon></ion-button>
+        </ion-item>
+    </ion-list>
+</ion-content>
+
+<ion-footer>
+    <ion-row>
+        <ion-col size="6" class="ion-no-padding">
+            <ion-button class="ion-no-margin" color="light" expand="full" mode="ios" (click)="clear()" type="reset">Limpiar</ion-button>
+        </ion-col>
+        <ion-col size="6" class="ion-no-padding">
+            <ion-button class="ion-no-margin" color="success" expand="full" mode="ios" (click)="f.ngSubmit.emit()">Filtrar</ion-button>
+        </ion-col>
+    </ion-row>
+</ion-footer>

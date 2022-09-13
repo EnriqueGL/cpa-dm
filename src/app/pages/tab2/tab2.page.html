@@ -1,27 +1,55 @@
 <ion-content>
-    <ion-row>
-        <ion-col size="9">
-            <form #form="ngForm" (ngSubmit)="getItem(form)">
-                <ion-item>
-                    <ion-label position="floating">Solicitud ID</ion-label>
-                    <ion-input type="number" ngModel required="true" name="id"></ion-input>
-                </ion-item>
-            </form>
-        </ion-col>
-        <ion-col size="2" style="display: flex; align-items: center">
-            <ion-button (click)="form.ngSubmit.emit()">
-                <ion-icon name="search"></ion-icon>
-            </ion-button>
-        </ion-col>
-    </ion-row>
-
-    <ion-card *ngIf="solicitud">
+    <ion-card *ngIf="solicitud" class="{{header?.Estatus.toLowerCase().replace(' ', '_')}}">
         <ion-card-header class="ion-text-center">
             <ion-icon name="document" size="large"></ion-icon>
-            <p>{{solicitud.alias}}</p>
+            <p>{{solicitud.alias}} ({{header.Id}})</p>
+            <p>Grupo: {{header.Grupo}}</p>
+            <ion-button color="danger" size="small" *ngIf="header.Estatus === 'En cola'" (click)="confirmar(header.Id)">Ejecutar</ion-button>
         </ion-card-header>
         <ion-card-content>
-            <ion-segment [(ngModel)]="segment" (ionChange)="segmentChanged($event)" [swipeGesture]="true">
+
+            <ion-row>
+                <ion-col size="6">
+                    <p>Fecha Encolamiento</p>
+                    <p>{{header.FechaEncolamiento}}</p>
+                </ion-col>
+                <ion-col size="6">
+                    <p>
+                        <ion-chip *ngIf="header.Estatus === 'Terminado'" color="success">{{header.Estatus}}</ion-chip>
+                        <ion-chip *ngIf="header.Estatus === 'En cola'" color="secondary">{{header.Estatus}}</ion-chip>
+                        <ion-chip *ngIf="header.Estatus === 'En proceso'" color="primary">{{header.Estatus}}</ion-chip>
+                        <ion-chip *ngIf="header.Estatus === 'Sin valores'" color="medium">{{header.Estatus}}</ion-chip>
+                    </p>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col size="6">
+                    <p>Fecha inicio</p>
+                    <p>{{header.FechaInicio}}</p>
+                </ion-col>
+                <ion-col size="6">
+                    <p>Fecha Fin</p>
+                    <p>{{header.FechaFin}}</p>
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-margin-bottom">
+                <ion-col size="12">
+                    <p>Solicitante</p>
+                    <p>{{header.Correo}}</p>
+                </ion-col>
+                <ion-col size="12">
+                    <p>Tipo Descarga</p>
+                    <p>{{header.Producto}} - {{header.Tipo}} - {{header.TipoDocumento}}</p>
+                </ion-col>
+                <ion-col size="12" *ngIf="header.Error">
+                    <p>Error</p>
+                    <p>{{header.Error}}</p>
+                </ion-col>
+            </ion-row>
+
+            <ion-segment [(ngModel)]="segment" [swipeGesture]="true">
                 <ion-segment-button value="filtros">
                     <ion-label>Filtros</ion-label>
                 </ion-segment-button>
@@ -29,10 +57,6 @@
                     <ion-label>Archivos</ion-label>
                 </ion-segment-button>
             </ion-segment>
-
-            <div class="ion-margin-top">
-                <p>Empresa: {{solicitud.empresas.join(',')}}</p>
-            </div>
 
             <div *ngIf="segment === 'archivos'">
                 <ion-list lines="none">
@@ -49,6 +73,7 @@
                     </ion-item>
                 </ion-list>
             </div>
+
             <div *ngIf="segment === 'filtros'">
                 <ion-list lines="none">
                     <ion-item *ngFor="let filtro of solicitud.filtros[0] | entries">

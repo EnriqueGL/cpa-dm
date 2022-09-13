@@ -4,8 +4,10 @@
 
 export const environment = {
     production: false,
-    // apiUrl: 'https://cpaprocess.cpavision.mx/'
-    apiUrl: 'http://localhost:8081/'
+    // process: 'https://cpaprocess.cpavision.mx/'
+    // fac: 'https://facreview.cpavision.mx/'
+    process: 'http://localhost:8081/',
+    fac: 'http://localhost:8080/'
 };
 
 /*

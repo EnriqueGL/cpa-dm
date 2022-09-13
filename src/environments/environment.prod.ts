@@ -1,4 +1,5 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://cpaprocess.cpavision.mx/'
+    process: 'https://cpaprocess.cpavision.mx/',
+    fac: 'https://facreview.cpavision.mx/'
 };

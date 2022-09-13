@@ -4,6 +4,13 @@ ion-card {
             max-height: 400px;
             overflow-y: auto;
         }
+        ion-row {
+            ion-col {
+                p:last-of-type {
+                    color: white;
+                }
+            }
+        }
     }
 }
 ion-list {
@@ -14,4 +21,21 @@ ion-list {
             width: 100%;
         }
     }
+}
+
+.terminado {
+    box-shadow: 0 -5px 0 -2px var(--ion-color-success);
+}
+
+.en_cola {
+    box-shadow: 0 -5px 0 -2px var(--ion-color-secondary);
+}
+
+.en_proceso {
+    box-shadow: 0 -5px 0 -2px var(--ion-color-primary);
+
+}
+
+.sin_valores {
+    box-shadow: 0 -5px 0 -2px var(--ion-color-medium);
 }

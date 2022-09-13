@@ -7,7 +7,8 @@ import { UtilsService } from './utils.service';
     providedIn: 'root'
 })
 export class HttpService {
-    url = environment.apiUrl;
+    process = environment.process;
+    fac = environment.fac;
     token = '';
 
     constructor(public http: HttpClient, private utils: UtilsService) {
@@ -23,25 +24,27 @@ export class HttpService {
         }
     }
 
-    get(path: string, params?: {}): any {
+    get(path: string, params?: {}, endpoint = 0): any {
         const httOptions = {
-            headers: new HttpHeaders({ }),
+            headers: new HttpHeaders({
+                'Content-Type': 'Application/json'
+            }),
             params
         };
-        return this.http.get(this.url + path, httOptions);
+        return this.http.get((endpoint ? this.fac : this.process) + path, httOptions);
     }
 
-    post(path: string, params: any, headers: boolean): any {
+    post(path: string, params: any, headers = true, endpoint = 0): any {
         if (headers) {
             const httOptions = {
                 headers: new HttpHeaders({
                     'Content-Type': 'Application/json',
-                    Authorization: this.getToken()
+                    // Authorization: this.getToken()
                 })
             };
-            return this.http.post(this.url + path, params, httOptions);
+            return this.http.post((endpoint ? this.fac : this.process) + path, params, httOptions);
         } else {
-            return this.http.post(this.url + path, params);
+            return this.http.post((endpoint ? this.fac : this.process) + path, params);
         }
     }
 
@@ -53,9 +56,9 @@ export class HttpService {
                     Authorization: this.getToken()
                 })
             };
-            return this.http.put(this.url + path, params, httOptions);
+            return this.http.put(this.process + path, params, httOptions);
         } else {
-            return this.http.put(this.url + path, params);
+            return this.http.put(this.process + path, params);
         }
     }
 
@@ -68,7 +71,7 @@ export class HttpService {
             body: params
         };
 
-        return this.http.delete(this.url + path, httOptions);
+        return this.http.delete(this.process + path, httOptions);
     }
 
     download(path, params?: {}) {
@@ -79,6 +82,6 @@ export class HttpService {
             }),
             params
         };
-        return this.http.get(this.url + path, httpOptions);
+        return this.http.get(this.process + path, httpOptions);
     }
 }

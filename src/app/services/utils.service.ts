@@ -76,16 +76,21 @@ export class UtilsService {
         await loading.present();
     }
 
-    async alert(text = 'Enter message here', subtext= '', callback = null, icon= 'checkmark-circle') {
+    async alert(text = 'Enter message here', subtext= '', callback = null, icon= 'checkmark-circle', color = 'primary') {
         const alert = await this.alertController.create({
             mode: 'ios',
             cssClass: 'customAlert',
             message: `<div class="loader-container">
-                        <ion-icon name="${icon}" color="primary"></ion-icon>
+                        <ion-icon name="${icon}" class="${color}"></ion-icon>
                         <p class="">${text}</p>
                         <p class="subtext">${subtext}</p>
                       </div>`,
             buttons: [
+                {
+                    text: 'Cancelar',
+                    role: 'cancel',
+                    cssClass: 'cancel'
+                },
                 {
                     text: 'Aceptar',
                     handler: () => {

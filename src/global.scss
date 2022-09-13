@@ -24,3 +24,35 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.customAlert {
+    .alert-message {
+        padding-bottom: 0;
+
+        ion-icon {
+            font-size: 50px;
+            margin-top: 10px;
+            color: var(--ion-color-primary);
+            &.warning {
+              color: var(--ion-color-warning) !important;
+            }
+        }
+
+        p {
+            font-size: 18px;
+            color: var(--ion-color-medium);
+        }
+
+        .subtext {
+            font-size: 12px;
+        }
+    }
+
+    .alert-button-group {
+        button {
+            &.cancel {
+                color: var(--ion-color-medium);
+            }
+        }
+    }
+}
